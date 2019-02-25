@@ -43,8 +43,13 @@ body, html {
   display: none;
 }
 
+button:focus {
+  outline:0;
+}
+
 .directory-searcher > form button {
   background-color: #d90429;
+  cursor: pointer;
 }
 
 .directory-searcher > form button:hover {

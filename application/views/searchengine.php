@@ -17,7 +17,7 @@
             <div class="directory-searcher">
                 <form>
                     <div class="field">
-                        <input type="text" placeholder="Palabra clave..">
+                        <input type="text" class="vAlphanumeric" id="keyword" placeholder="Palabra clave..">
                     </div>
                     <div class="field" style="width: 20%;">
                         <select data-placeholder="Origen de información" class="chosen-select" tabindex="-1" style="display: none;">
@@ -26,11 +26,13 @@
                         </select>
                     </div>
                     <div class="field">
-                        <button type="submit"><i class="la la-search"></i>BUSCAR</button>
+                        <button type="button" id="btnQuery"><i class="la la-search"></i>BUSCAR</button>
                     </div>
                 </form>
             </div>
-            <a class="arrow-down floating" title=""><i class="la la-spinner fa-pulse"></i></a>
+            <div class="cat-lists" id="div-myDataTable">
+            </div>
+            <!-- <a class="arrow-down floating" title=""><i class="la la-spinner fa-pulse"></i></a> -->
         </div>
     </div>
 
@@ -39,5 +41,13 @@
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 <!-- Prolist - Directory & Listing WordPress Theme JavaScript -->
 <script type="text/javascript" src="js/choosen.min.js"></script>
+<!-- Custom JavaScript for this project -->
+<script type="text/javascript" src="js/my-general-functions.js"></script>
+<!-- DataTable JavaScript -->
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/dataTables.bootstrap4.min.js"></script>
+<!-- Stellar Admin notifications JavaScript -->
+<script type="text/javascript" src="js/jquery.toast.min.js"></script>
+<script type="text/javascript" src="js/my-toastnotification.js"></script>
 </body>
 </html>
