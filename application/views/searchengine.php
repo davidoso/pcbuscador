@@ -3,7 +3,7 @@
 <head>
   <?php $this->load->view('head'); ?>
 </head>
-<body class="bglogin align-items-center">
+<body class="bg align-items-center">
     <div class="container">
         <div class="row justify-content-center">
             <p class="app-img"><img src="http://vwebdelta/bitacoramovil/assets/img/logo_peco.png"></p>
@@ -17,7 +17,7 @@
             <div class="directory-searcher">
                 <form>
                     <div class="field">
-                        <input type="text" class="vAlphanumeric" id="keyword" placeholder="Palabra clave..">
+                        <input type="text" class="vAlphanumeric" id="keyword" maxlength="30" placeholder="Palabra clave..">
                     </div>
                     <div class="field" style="width: 20%;">
                         <select data-placeholder="Origen de información" class="chosen-select" tabindex="-1" style="display: none;">

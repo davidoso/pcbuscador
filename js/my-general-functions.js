@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    //var tbl;
+    var extClass, fileType;
 
     // Set focus on keyword input field on page load
     $('#keyword').focus();
@@ -48,43 +48,63 @@ $(document).ready(function() {
     // Show a notification is the keyword input is empty
     function validateKeyword() {
         trimKeyword();
-        if($('#keyword').val() == '') {
+        var keyword = $('#keyword').val();
+
+        if(keyword == '') {
             showToastNotif('Búsqueda vacía', 'Ingrese una palabra clave para hacer una búsqueda', 'mid-center', 'warning');
+            $('#keyword').focus();
         }
         else {
-            createDatatable();
+            re = /^[A-Z0-9ÁÉÍÓÚÑ\s]{3,}$/;      // Validate at least 3 alphanumeric characters in case the user copy-paste some text
+            if(!re.test(keyword)) {
+                showToastNotif('Palabra clave inválida', 'Ingrese al menos 3 caracteres alfanuméricos', 'mid-center', 'warning');
+                $('#keyword').focus();
+            }
+            else {
+                if(keyword.length > 30) {       // In case an advanced user changes the input maxlength attribute
+                    showToastNotif('Palabra clave inválida', 'Ingrese no más de 30 caracteres alfanuméricos', 'mid-center', 'warning');
+                    $('#keyword').focus();
+                }
+                else {                          // Keyword is ok
+                    createDatatable();
+                }
+            }
         }
     }
 
     function createDatatable() {
         var tblStructure =
-            '<table class="table table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">' +
-            '<thead class="tbl-blue-th">' +
+            '<table class="table table-secondary table-striped table-bordered" id="myDataTable" width="100%" cellspacing="0">' +
+            '<thead class="my-dt-thead">' +
                 '<tr>' +
                     '<th></th>' +
-                    '<th width="10%">Clave</th>' +
+                    '<th width="16%">Clave</th>' +
                     '<th width="10%">No. de revisión</th>' +
                     '<th width="10%">Bóveda</th>' +
-                    '<th width="40%">Documento</th>' +
+                    '<th width="33%">Documento</th>' +
                     '<th width="15%">Tipo</th>' +
-                    '<th width="5%">Formato</th>' +
-                    '<th width="5%"><i class="la la-eye" title="Ver en otra pestaña"></i></th>' +
-                    '<th width="5%"><i class="la la-download" title="Descargar"></i></th>' +
+                    '<th></th>' +
+                    '<th width="8%">Formato</th>' +
+                    '<th width="8%"><i class="la la-download my-la-icon" title="Descargar"></i></th>' +
                 '</tr>' +
             '</thead>' +
             '<tbody>' +
             '</tbody>';
             $('#div-myDataTable').html(tblStructure);
-            //$('#myDataTable').dataTable();
 
         var keyword = $('#keyword').val();
         var tbl = $("#myDataTable").DataTable({
-            //dom: 'l<"toolbar">frtip',
-            dom: '<"top"i>rt<"bottom"flp><"clear">',
-            "columnDefs": [{
-                "targets": [0], // Hide INFO_CARD_ID column
-                "visible": false
-            }],
+            dom: '<"row"<"col-sm-3 my-dt-show"l><"col-sm-6 my-dt-info"i><"col-sm-3"p>>t',
+            "columnDefs": [
+                {
+                    "targets": [0, 6],                          // Hide INFO_CARD_ID and CODIGO_TIPO columns
+                    "visible": false,
+                },
+                {
+                    "targets": [2],                             // Sort REVISION column as number
+                    "type": "num"
+                }
+            ],
             "ajax": {
                 "url": "http://localhost/buscador/index.php/App_c/getMasterweb",
                 "data": {"userid": "gquiteno", "keyword": keyword},
@@ -92,38 +112,56 @@ $(document).ready(function() {
                 "datatype": "json",
                 "dataSrc": ""
             },
-            // Column names returned from SQL query are case sensitive
-            "columns": [
+            "columns": [                                        // Column names returned from SQL query are case sensitive
                 {"data":"INFO_CARD_ID"},
                 {"data":"CLAVE"},
-                {"data":"REVISION"},
+                {"data":"REVISION",
+                    "render": function ( data, type, row ) {
+                        // DELETE THIS WHEN GIBRAN UPDATES SLQ QUERY: "N.A." TURNS TO "-"
+                        if(data == "N.A.")
+                            data = "-";
+                        if(data.charAt(0) == "0")
+                            data = data.substring(1);           // Begin the extraction at position 1, e.g. REVISION 01 becomes REVISION 1
+                        return data;
+                    },
+                    "searchable": false,
+                    "orderable": true                           // Enable sort on REVISION column
+                },
                 {"data":"BOVEDA"},
                 {"data":"DOCUMENTO"},
                 {"data":"TIPO_DOC"},
+                {"data":"CODIGO_TIPO"},
                 {"data":"EXT",
                     "render": function ( data, type, row ) {
                         var text = "";
-                            switch(data) {
+                        var extSubstring = (data == "pdf") ? "pdf" : data.substring(0, 2);
+                            switch(extSubstring) {
                                 case "pdf":
-                                    // text = '<span class="badge badge-danger"><i class="la la-file-pdf-o la-2x" title="PDF"></i></span>';
                                     text = '<i class="la la-file-pdf-o la-2x text-danger" title="PDF"></i>';
+                                    extClass = 'danger';
+                                    fileType = 'PDF';
                                     break;
-                                case "doc":
-                                case "docx":
-                                    text = '<i class="la la-file-word-o la-2x text-info" title="Word"></i>';
-                                    break;
-                                case "xls":
-                                case "xlsx":
+                                case "xl":      // Includes xl, xlsx, xlsb
                                     text = '<i class="la la-file-excel-o la-2x text-success" title="Excel"></i>';
+                                    extClass = 'success';
+                                    fileType = 'Excel';
                                     break;
-                                case "ppt":
-                                case "pptx":
+                                case "do":      // Includes doc, docx, docm
+                                    text = '<i class="la la-file-word-o la-2x text-info" title="Word"></i>';
+                                    extClass = 'info';
+                                    fileType = 'Word';
+                                    break;
+                                case "pp":      // Includes ppt, pptx, pps, ppsx
                                     text = '<i class="la la-file-powerpoint-o la-2x text-warning" title="PowerPoint"></i>';
+                                    extClass = 'warning';
+                                    fileType = 'PowerPoint';
                                     break;
                                 default:
                                     text = '<i class="la la-file-o la-2x text-secondary" title="Otro"></i>';
+                                    extClass = 'secondary';
+                                    fileType = 'archivo';
                             }
-                        data = text
+                        data = text;
                         return data;
                     },
                     "searchable": false,
@@ -131,67 +169,26 @@ $(document).ready(function() {
                 },
                 {"data":"ARCHIVO",
                     "render": function ( data, type, row ) {
-                        var text = '<a href="' + data + '" target="_blank" class="btn btn-outline-warning btn-sm"><i class="la la-download la-2x" title="Descargar"></i></a>';
+                        // console.log("Pathfiles:\n" + data);          // Print all pathfiles
+                        if(fileType == "PDF") {
+                            var text = '<a href="' + data + '" target="_blank" class="btn btn-' + extClass + ' btn-sm"><i class="la la-eye my-la-icon" title="Abrir PDF en otra pestaña"></i></a>';
+                        }
+                        else {
+                            var text = '<a href="' + data + '" class="btn btn-' + extClass + ' btn-sm"><i class="la la-download my-la-icon" title="Descargar ' + fileType + '"></i></a>';
+                        }
                         data = text;
                         return data;
                     },
-                    "searchable": false,
-                    "orderable": false
-                },
-                {"data":"CODIGO_TIPO",
-                    "render": function ( data, type, row ) {
-                        var text = '<a href="' + data + '" target="_blank" class="btn btn-outline-info btn-sm"><i class="la la-eye la-2x" title="Ver en otra pestaña"></i></a>';
-                        data = text;
-                        return data;
-                    },
-                    "searchable": false,
-                    "orderable": false
-                },
-                /*{
-                    "target": -2,
-                    "data": null,
-                    // "defaultContent": "<button id='btn_download' class='btn btn-outline-info btn-sm' title='Descargar'><i class='la la-download'></i></button>",
-                    "defaultContent": "<a href='http://vwebdelta:8088/webdocs/X141/201308301048449031.pdf' target='_blank'><i class='la la-download la-2x' title='Descargar'></i></a>",
                     "searchable": false,
                     "orderable": false
                 }
-                {
-                    "target": -1,
-                    "data": null,
-                    "defaultContent": "<button id='btn_view' class='btn btn-outline-warning btn-sm' title='Ver en otra pestaña'><i class='la la-eye'></i></button>",
-                    "searchable": false,
-                    "orderable": false
-                },*/
             ],
+            "order": [ [3, "asc"], [4, "asc"] ],                        // Sort by BOVEDA and DOCUMENTO
+            "pagingType": "simple_numbers",
             "language": {
                 // http://www.snacklocal.com/images/ajaxload.gif
                 "sLoadingRecords": '<span style="width: 100%;"><img src="images/loading.gif"></span>'
              },
         }); // $("#myDataTable").DataTable()
-
-        /* DELETE THIS
-        $("#myDataTable tbody").on('click','[id=btn_download]',function(){
-            var data = tbl.row($(this).parents('tr')).data(); // Data object
-
-                if(document.getElementById('formDownloadSingle'))
-                    $('#formDownloadSingle').remove();
-
-                var inputs =
-                    '<input type="text" name="documento" value="' + data.DOCUMENTO + '">' +
-                    //'<input type="text" name="participante" value="' + data.participante + '">' +
-                    '<input type="text" name="archivo" value="' + data.ARCHIVO + '">';
-
-                // Build form (hide keeps it from being visible)
-                $form = $('<form/>').attr({id: 'formDownloadSingle', method: 'POST', action: 'assets/fpdi-fpdf/generate_single_gafete.php'}).hide();
-
-                // Add inputs to form
-                $form.append(inputs);
-
-                // Add form to the document body
-                $('body').append($form);
-
-                // Submit the form and FPDI-FPDI output should open a dialog to download the file
-                $form.submit();
-        });*/
     }
 }); // $(document).ready()

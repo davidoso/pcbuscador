@@ -16,14 +16,14 @@ class Search_m extends CI_Model {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, "USUARIOID=$userid&BUSCAR=$keyword");					// Data to post passed as a urlencoded string or as an associative array
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);												// TRUE to return the transfer as a string of the return value
 
-		// Submit the POST request
-		$output = curl_exec($curl); // la variable output contiene el json raw
+		// Submit the POST request and decode the returned JSON string as an array
+		$output = curl_exec($curl);
+		$output = json_decode($output);
 
 		// Close cURL session handle (close connection)
 		curl_close($curl);
 
-		$output = json_decode($output);
-		return $output;
+		return is_null($output) ? json_decode("{}") : $output;
 	}
 }
 ?>

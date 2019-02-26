@@ -7,13 +7,12 @@ body, html {
   height: 90%;
 }
 
-.bglogin {
+.bg {
   /* The image used */
-  background-image: url("../images/bglogin.jpg");
+  background-image: url("../images/bg-revamping3.jpg");
   /* Full height */
   height: 100%;
-  /* Center and scale the image nicely */
-  background-position: center;
+  /* Scale the image nicely (without center it) */
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #282828;
@@ -54,4 +53,36 @@ button:focus {
 
 .directory-searcher > form button:hover {
   background: #8d99ae;
+}
+
+.my-dt-thead {
+  background-color: aliceblue;
+  color: darkmagenta;
+}
+
+.my-dt-show {
+  text-align: left;
+}
+
+.my-dt-info {
+  color: #212529;
+  font-weight: 500;
+}
+
+.my-la-icon {
+  font-weight: bold !important;
+}
+
+#myDataTable_length > label {
+  padding-top: 0.45em !important;
+  color: #212529;
+  font-weight: 500;
+}
+
+#myDataTable tbody {
+  color: whitesmoke;
+}
+
+#myDataTable tbody tr:hover {
+  background-color: rgba(141, 153, 174, .6);
 }
