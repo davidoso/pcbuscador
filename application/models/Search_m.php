@@ -4,7 +4,7 @@ class Search_m extends CI_Model {
 	public function getMasterweb()
 	{
 		// Post fields required by BUSCAMW webservice
-		$userid = $this->input->post('userid');
+		$userid = $this->session->userdata('userid');
 		$keyword = $this->input->post('keyword');
 
 		// Initiate the cURL object (open connection)
@@ -16,7 +16,7 @@ class Search_m extends CI_Model {
 		curl_setopt($curl, CURLOPT_POSTFIELDS, "USUARIOID=$userid&BUSCAR=$keyword");					// Data to post passed as a urlencoded string or as an associative array
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);												// TRUE to return the transfer as a string of the return value
 
-		// Submit the POST request and decode the returned JSON string as an array
+		// Submit the POST request and decode the returned JSON string as an array of objects
 		$output = curl_exec($curl);
 		$output = json_decode($output);
 

@@ -4,25 +4,27 @@
   <?php $this->load->view('head'); ?>
 </head>
 <body class="bg align-items-center">
+    <?php $this->load->view('navbar'); ?>
     <div class="container">
         <div class="row justify-content-center">
-            <p class="app-img"><img src="http://vwebdelta/bitacoramovil/assets/img/logo_peco.png"></p>
+            <p class="app-img"><img src="images/logo_peco.png"></p>
             <div class="vl"></div>
             <p class="app-title">BUSCADOR</p>
         </div>
         <div class="main-featured-sec">
             <div class="main-featured-text">
-                <p>Ingrese una palabra clave contenida en el nombre de un documento en MASTERWEB<br>o contenido multimedia en SharePoint</p>
+                <!-- <p>Ingrese una palabra clave contenida en el nombre de un documento en MASTERWEB<br>o contenido multimedia en SharePoint</p> -->
+                <p>Ingrese una palabra clave contenida en el nombre de un documento en MASTERWEB</p>
             </div>
             <div class="directory-searcher">
                 <form>
                     <div class="field">
-                        <input type="text" class="vAlphanumeric" id="keyword" maxlength="30" placeholder="Palabra clave..">
+                        <input type="text" class="vAlphanumeric" id="keyword" maxlength="30" placeholder="Palabra clave.." autofocus>
                     </div>
                     <div class="field" style="width: 20%;">
                         <select data-placeholder="Origen de información" class="chosen-select" tabindex="-1" style="display: none;">
                             <option value="MASTERWEB">MASTERWEB</option>
-                            <option value="SharePoint">SharePoint</option>
+                            <!-- <option value="SharePoint">SharePoint</option> -->
                         </select>
                     </div>
                     <div class="field">

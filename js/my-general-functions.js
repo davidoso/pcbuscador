@@ -1,8 +1,8 @@
 $(document).ready(function() {
     var ext, extClass, fileType;
 
-    // Set focus on keyword input field on page load
-    $('#keyword').focus();
+    // Set focus on keyword input field on page load (HTML5 autofocus attribute is used instead)
+    // $('#keyword').focus();
 
     // Allow/block keys depending on the input class
     function validateLetters(charCode) {
@@ -14,7 +14,7 @@ $(document).ready(function() {
     }
 
     function validateAlphanumeric(charCode) {
-        return (validateLetters(charCode) || validateNumbers(charCode));
+        return (validateLetters(charCode) || validateNumbers(charCode) || charCode == 45 || charCode == 46); // 45 is '-' and 46 '.'
     }
 
     // Allow only alphanumeric characters on keyword input
@@ -55,7 +55,7 @@ $(document).ready(function() {
             $('#keyword').focus();
         }
         else {
-            re = /^[A-Z0-9ÁÉÍÓÚÑ\s]{3,}$/;      // Validate at least 3 alphanumeric characters in case the user copy-paste some text
+            re = /^[A-Z0-9ÁÉÍÓÚÑ.-\s]{3,}$/;      // Validate at least 3 alphanumeric characters, '.' or '-' in case the user copy-paste some text
             if(!re.test(keyword)) {
                 showToastNotif('Palabra clave inválida', 'Ingrese al menos 3 caracteres alfanuméricos', 'mid-center', 'warning');
                 $('#keyword').focus();
@@ -83,7 +83,6 @@ $(document).ready(function() {
                     '<th width="10%">Bóveda</th>' +
                     '<th width="33%">Documento</th>' +
                     '<th width="15%">Tipo</th>' +
-                    '<th></th>' +
                     '<th width="8%">Formato</th>' +
                     '<th width="8%"><i class="la la-download my-la-icon" title="Descargar"></i></th>' +
                 '</tr>' +
@@ -97,7 +96,7 @@ $(document).ready(function() {
             dom: '<"row"<"col-sm-3 my-dt-show"l><"col-sm-6 my-dt-info"i><"col-sm-3"p>>t',
             "columnDefs": [
                 {
-                    "targets": [0, 6],                          // Hide INFO_CARD_ID and CODIGO_TIPO columns
+                    "targets": [0],                             // Hide INFO_CARD_ID
                     "visible": false,
                 },
                 {
@@ -106,8 +105,8 @@ $(document).ready(function() {
                 }
             ],
             "ajax": {
-                "url": "http://localhost/buscador/index.php/App_c/getMasterweb",
-                "data": {"userid": "gquiteno", "keyword": keyword},
+                "url": "http://localhost/buscador/index.php/Buscador/getMasterweb",
+                "data": {"keyword": keyword},
                 "type": "post",
                 "datatype": "json",
                 "dataSrc": ""
@@ -117,9 +116,6 @@ $(document).ready(function() {
                 {"data":"CLAVE"},
                 {"data":"REVISION",
                     "render": function ( data, type, row ) {
-                        // DELETE THIS WHEN GIBRAN UPDATES SLQ QUERY: "N.A." TURNS TO "-" REVISAR QUE QUEDE BIEN WEBDOCS Y . EN ARCHIVOS != PDF
-                        if(data == "N.A.")
-                            data = "-";
                         if(data.charAt(0) == "0")
                             data = data.substring(1);           // Begin the extraction at position 1, e.g. REVISION 01 becomes REVISION 1
                         return data;
@@ -130,7 +126,6 @@ $(document).ready(function() {
                 {"data":"BOVEDA"},
                 {"data":"DOCUMENTO"},
                 {"data":"TIPO_DOC"},
-                {"data":"CODIGO_TIPO"},
                 {"data":"EXT",
                     "render": function ( data, type, row ) {
                         data = data.toLowerCase();              // Transform to lowercase because the SQL query returns some uppercase file extensions
@@ -170,7 +165,7 @@ $(document).ready(function() {
                 },
                 {"data":"ARCHIVO",
                     "render": function ( data, type, row ) {
-                        // console.log("Pathfiles:\n" + data);          // Print all pathfiles
+                        // console.log("Pathfile:\n" + data);           // Print all pathfiles
                         if(ext == "pdf") {
                             // In some cases, a dot has to be added manually because the SQL query doesn't concatenate the PDF pathfile, the dot (.) and its "pdf" extension
                             // Example files (look up these keywords): perforadora, a granel, espreas, proteccion civil, quejas del cliente, espacios confinados

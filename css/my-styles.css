@@ -55,6 +55,18 @@ button:focus {
   background: #8d99ae;
 }
 
+#my-nav {
+  text-align: right;
+}
+
+.my-la-22 {
+  font-size: 22px;
+}
+
+.my-la-icon {
+  font-weight: bold !important;
+}
+
 .my-dt-thead {
   background-color: aliceblue;
   color: darkmagenta;
@@ -67,10 +79,6 @@ button:focus {
 .my-dt-info {
   color: #212529;
   font-weight: 500;
-}
-
-.my-la-icon {
-  font-weight: bold !important;
 }
 
 #myDataTable_length > label {
