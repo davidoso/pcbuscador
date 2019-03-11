@@ -79,9 +79,9 @@ $(document).ready(function() {
                 '<tr>' +
                     '<th></th>' +
                     '<th width="16%">Clave</th>' +
-                    '<th width="10%">No. de revisión</th>' +
+                    '<th width="10%">Revisión</th>' +
                     '<th width="10%">Bóveda</th>' +
-                    '<th width="33%">Documento</th>' +
+                    '<th width="33%">Título</th>' +
                     '<th width="15%">Tipo</th>' +
                     '<th width="8%">Formato</th>' +
                     '<th width="8%"><i class="la la-download my-la-icon" title="Descargar"></i></th>' +
@@ -93,7 +93,8 @@ $(document).ready(function() {
 
         var keyword = $('#keyword').val();
         var tbl = $("#myDataTable").DataTable({
-            dom: '<"row"<"col-sm-3 my-dt-show"l><"col-sm-6 my-dt-info"i><"col-sm-3"p>>t',
+            // dom: '<"row"<"col-sm-3 my-dt-show"l><"col-sm-3 my-dt-info"i><"col-sm-3"f><"col-sm-3"p>>t',
+            dom: '<"row"<"col-sm-12"f>><"row"<"col-sm-3 my-dt-show"l><"col-sm-6 my-dt-info"i><"col-sm-3"p>>t',
             "columnDefs": [
                 {
                     "targets": [0],                             // Hide INFO_CARD_ID

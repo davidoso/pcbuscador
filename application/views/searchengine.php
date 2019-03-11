@@ -14,12 +14,11 @@
         <div class="main-featured-sec">
             <div class="main-featured-text">
                 <!-- <p>Ingrese una palabra clave contenida en el nombre de un documento en MASTERWEB<br>o contenido multimedia en SharePoint</p> -->
-                <p>Ingrese una palabra clave contenida en el nombre de un documento en MASTERWEB</p>
             </div>
             <div class="directory-searcher">
                 <form>
                     <div class="field">
-                        <input type="text" class="vAlphanumeric" id="keyword" maxlength="30" placeholder="Palabra clave.." autofocus>
+                        <input type="text" class="vAlphanumeric" id="keyword" maxlength="30" placeholder="Palabra clave en título de documento.." autofocus>
                     </div>
                     <div class="field" style="width: 20%;">
                         <select data-placeholder="Origen de información" class="chosen-select" tabindex="-1" style="display: none;">
