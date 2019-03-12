@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-  <?php $this->load->view('head'); ?>
+    <?php $this->load->view('head'); ?>
 </head>
 <body class="bg align-items-center">
     <?php $this->load->view('navbar'); ?>
