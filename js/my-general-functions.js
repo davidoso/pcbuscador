@@ -106,6 +106,7 @@ $(document).ready(function() {
                 }
             ],
             "ajax": {
+                //"url": "http://vwebdelta/buscador/index.php/Buscador/getMasterweb",
                 "url": "http://localhost/buscador/index.php/Buscador/getMasterweb",
                 "data": {"keyword": keyword},
                 "type": "post",
