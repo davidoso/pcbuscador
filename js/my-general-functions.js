@@ -186,6 +186,7 @@ $(document).ready(function() {
             ],
             "order": [ [3, "asc"], [4, "asc"] ],                        // Sort by BOVEDA and DOCUMENTO
             "pagingType": "simple_numbers",
+            "pageLength": 25,
             "language": {
                 // http://www.snacklocal.com/images/ajaxload.gif
                 "sLoadingRecords": '<span style="width: 100%;"><img src="images/loading.gif"></span>'

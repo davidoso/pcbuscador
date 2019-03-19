@@ -5,7 +5,7 @@
             </div>
 
             <div class="row justify-content-center my-3">
-                <h3 class="text-white">Sistema Único de Acceso (STS/ADFS)</h3>
+                <h3 class="text-white">Sistema Único de Acceso</h3>
             </div>
 
             <div class="row justify-content-center my-3">
