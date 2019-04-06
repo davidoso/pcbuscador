@@ -7,9 +7,9 @@
             text: text,
             position: String(position),
             showHideTransition: 'slide',
-            icon: icon, // 4 options (and therefore background color): info, error, warning, success
+            icon: icon,             // 4 options (and therefore background color): info, error, warning, success
             stack: false,
-            loaderBg: '#ab47bc'
+            loaderBg: '#5d7388'     // Azulpc
         })
     }
 
