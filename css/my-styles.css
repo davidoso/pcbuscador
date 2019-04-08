@@ -23,7 +23,7 @@ body, html {
 }
 
 .app-title {
-  color: #ffffff;
+  color: #fff;
   font-family: Roboto;
   font-size: 50px;
   font-weight: 500;
@@ -82,9 +82,13 @@ button:focus {
   font-weight: 500;
 }
 
+.my-dt-row {
+  background: #929395;
+}
+
 #myDataTable_length > label {
-  padding-top: 0.45em !important;
-  color: #212529;
+  padding-top: 0.5rem !important;
+  color: #fff;
   font-weight: 500;
 }
 
@@ -92,6 +96,14 @@ button:focus {
   font-size: 1rem;
   border-radius: 0.25rem;
   color: #8d99ae;
+}
+
+#myDataTable_paginate {
+  padding-top: 0.21rem;
+}
+
+#myDataTable_info {
+  color: #fff;
 }
 
 #myDataTable tbody {

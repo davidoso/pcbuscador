@@ -94,7 +94,7 @@ $(document).ready(function() {
         var keyword = $('#keyword').val();
         var tbl = $("#myDataTable").DataTable({
             // dom: '<"row"<"col-sm-3 my-dt-show"l><"col-sm-3 my-dt-info"i><"col-sm-3"f><"col-sm-3"p>>t',
-            dom: '<"row"<"col-sm-12"f>><"row"<"col-sm-3 my-dt-show"l><"col-sm-6 my-dt-info"i><"col-sm-3"p>>t',
+            dom: '<"row"<"col-sm-12"f>><"row my-dt-row"<"col-sm-3 my-dt-show"l><"col-sm-6 my-dt-info"i><"col-sm-3"p>>t',
             "columnDefs": [
                 {
                     "targets": [0],                             // Hide INFO_CARD_ID
