@@ -174,10 +174,10 @@ $(document).ready(function() {
                             if(!data.includes(".", data.length - ext.length - 1)) {
                                 data = data.substring(0, data.length - ext.length) + "." + ext;
                             }
-                            var html = '<a href="' + data + '" target="_blank" class="btn btn-' + extClass + ' btn-sm"><i class="la la-eye my-la-icon" title="Abrir PDF en otra pestaña"></i></a>';
+                            var html = '<a href="' + data + '" target="_blank" class="btn btn-' + extClass + ' btn-sm" title="Abrir PDF en otra pestaña"><i class="la la-eye my-la-icon"></i></a>';
                         }
                         else {
-                            var html = '<a href="' + data + '" class="btn btn-' + extClass + ' btn-sm"><i class="la la-download my-la-icon" title="Descargar ' + fileType + '"></i></a>';
+                            var html = '<a href="' + data + '" class="btn btn-' + extClass + ' btn-sm" title="Descargar ' + fileType + '"><i class="la la-download my-la-icon"></i></a>';
                         }
                         return html;
                     },

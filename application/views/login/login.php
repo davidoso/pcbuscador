@@ -39,6 +39,6 @@
             </div>
 
             <div class="row justify-content-center mt-5">
-                <p class="text-white">Peña Colorada | Tecnologías de Información</p>
+                <p class="text-white" id="ppeco">&nbsp;&nbsp;Peña Colorada | Tecnologías de Información&nbsp;&nbsp;</p>
             </div>
         </div>
