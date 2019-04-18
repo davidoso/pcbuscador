@@ -20,14 +20,15 @@ body, html {
 
 .app-img {
   float: left;
+  margin-bottom: 0;
 }
 
 .app-title {
-  color: #fff;
-  font-family: Roboto;
+  color: white;
   font-size: 50px;
   font-weight: 500;
-  margin-top: 32px;
+  margin-top: 2.25rem;
+  margin-bottom: 0;
   text-transform: uppercase;
 }
 
@@ -35,7 +36,7 @@ body, html {
   border-left: 6px solid #ffc107;
   border-radius: 10px;
   height: 50px;
-  margin: 20px 20px 0 20px;
+  margin: 1.5rem 1.5rem 0 1.5rem;
 }
 
 .chosen-drop > .chosen-search {
