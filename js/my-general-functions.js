@@ -55,17 +55,17 @@ $(document).ready(function() {
             $('#keyword').focus();
         }
         else {
-            re = /^[A-Z0-9ÁÉÍÓÚÑ.-\s]{3,}$/;      // Validate at least 3 alphanumeric characters, '.' or '-' in case the user copy-paste some text
+            re = /^[A-Z0-9ÁÉÍÓÚÑ.-\s]{3,}$/;                    // Validate at least 3 alphanumeric characters, '.' or '-' in case the user copy-paste some text
             if(!re.test(keyword)) {
                 showToastNotif('Palabra clave inválida', 'Ingrese al menos 3 caracteres alfanuméricos', 'mid-center', 'warning');
                 $('#keyword').focus();
             }
             else {
-                if(keyword.length > 30) {       // In case an advanced user changes the input maxlength attribute
+                if(keyword.length > 30) {                       // In case an advanced user changes the input maxlength attribute
                     showToastNotif('Palabra clave inválida', 'Ingrese no más de 30 caracteres alfanuméricos', 'mid-center', 'warning');
                     $('#keyword').focus();
                 }
-                else {                          // Keyword is ok
+                else {                                          // Keyword is ok
                     createDatatable();
                 }
             }
