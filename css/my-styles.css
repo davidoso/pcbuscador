@@ -53,7 +53,7 @@ button:focus {
 }
 
 .directory-searcher > form button:hover {
-  background: #8d99ae;
+  background-color: #8d99ae;
 }
 
 #my-nav {
@@ -84,7 +84,7 @@ button:focus {
 }
 
 .my-dt-row {
-  background: #929395;
+  background-color: #929395;
 }
 
 #myDataTable_length > label {
