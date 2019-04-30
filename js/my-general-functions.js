@@ -10,7 +10,7 @@ $(document).ready(function() {
     }
 
     function validateNumbers(charCode) {
-        return !(charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 32 && (charCode <= 192 || charCode >= 255));
+        return !((charCode < 48 || charCode > 57) && (charCode <= 209 || charCode >= 241));
     }
 
     function validateAlphanumeric(charCode) {
