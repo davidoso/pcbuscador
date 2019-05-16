@@ -47,7 +47,6 @@ $(document).ready(function() {
 
     // Show a notification is the keyword input is empty
     function validateKeyword() {
-        trimKeyword();
         var keyword = $('#keyword').val();
 
         if(keyword == '') {
